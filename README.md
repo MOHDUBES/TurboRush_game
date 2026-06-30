@@ -96,7 +96,7 @@ Below is an exhaustive breakdown of every major technology and library utilized,
 ### Installation Steps
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/TurboRush.git
+   https://github.com/MOHDUBES/TurboRush_game
    ```
 2. **Open the project in Android Studio:**
    - Select `File > Open` and choose the root `TurboRush` directory. Wait for Gradle to fully sync.
