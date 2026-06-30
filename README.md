@@ -6,6 +6,8 @@ Welcome to the **TurboRush** project documentation. This document serves as a co
 
 ## 🌟 Key Features & Innovations
 
+> **🎮 [DOWNLOAD THE LATEST APK (PLAY THE GAME HERE)](https://github.com/MOHDUBES/TurboRush_game/releases/latest)**
+
 - **Endless Procedural Racing**: Weave through traffic, collect coins, and pick up fuel in procedurally generated environments. The game scales in difficulty naturally as your score increases, accelerating the road speed and progressively transitioning through dynamic themes (City 🌆, Village 🏡, Mountain ⛰️, Ocean 🌊).
 - **Custom Native Rendering Engine**: Built from the ground up natively using Android's `Canvas` API (`Renderer.java`). This entirely eliminates the need for heavy external game engines (like Unity or Unreal), giving absolute control over 60 FPS screen draws while maintaining an incredibly small App bundle size.
 - **Real-Time Multiplayer Lobbies**: The multiplayer infrastructure allows users to create custom rooms via 4-digit codes, use auto-matchmaking, and race against up to 3 other friends simultaneously. Live synchronization ensures everyone sees the exact same cars, positions, and crash states with minimal latency.
