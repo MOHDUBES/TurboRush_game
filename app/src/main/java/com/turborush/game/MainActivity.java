@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.text.InputType;
 import android.hardware.Sensor;
@@ -22,6 +23,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.graphics.Bitmap;
 import android.util.Log;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
@@ -48,6 +52,8 @@ public class MainActivity extends Activity implements SensorEventListener {
     private FirebaseAnalytics mFirebaseAnalytics;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
+    private AdManager mAdManager;
+    private AdView mAdView;
     private static final int RC_SIGN_IN = 1002;
     private static final int PERMISSION_REQ_ID = 22;
 
@@ -113,9 +119,34 @@ public class MainActivity extends Activity implements SensorEventListener {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Initialize Game View and set it as content view FIRST
+        mAdManager = new AdManager(this);
+
+        // Initialize Game View
         gameSurfaceView = new GameSurfaceView(this);
-        setContentView(gameSurfaceView);
+        
+        // Setup RelativeLayout to hold both Game and Banner
+        RelativeLayout layout = new RelativeLayout(this);
+        layout.addView(gameSurfaceView, new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, 
+                RelativeLayout.LayoutParams.MATCH_PARENT));
+
+        // Setup Banner Ad
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.BANNER);
+        // Real ID for Banner
+        mAdView.setAdUnitId("ca-app-pub-1648653896183802/3461701035"); 
+        
+        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        adParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        layout.addView(mAdView, adParams);
+        
+        mAdView.loadAd(new AdRequest.Builder().build());
+        mAdView.setVisibility(View.GONE); // Hidden by default
+
+        setContentView(layout);
 
         // Make the app full screen and immersive
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -322,6 +353,38 @@ public class MainActivity extends Activity implements SensorEventListener {
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             builder.show();
+        });
+    }
+
+    public void showRewardedAd(com.google.android.gms.ads.OnUserEarnedRewardListener listener) {
+        runOnUiThread(() -> {
+            if (mAdManager != null) {
+                mAdManager.showRewardedAd(listener);
+            }
+        });
+    }
+
+    public void showBannerAd() {
+        runOnUiThread(() -> {
+            if (mAdView != null) {
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void hideBannerAd() {
+        runOnUiThread(() -> {
+            if (mAdView != null) {
+                mAdView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void showInterstitialAd() {
+        runOnUiThread(() -> {
+            if (mAdManager != null) {
+                mAdManager.showInterstitialAd();
+            }
         });
     }
 }

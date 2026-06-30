@@ -46,6 +46,9 @@ public class GameEngine {
 
     // Subsystems
     private GameState currentState = GameState.MAIN_MENU;
+    private GameState previousState = null;
+    private int crashesSinceLastAd = 0;
+    
     private StorageManager storage;
     private GameAudioManager audio;
 
@@ -77,6 +80,10 @@ public class GameEngine {
     // Invite UI Rects
     private RectF btnInviteJoin = new RectF();
     private RectF btnInviteDecline = new RectF();
+    
+    // AdMob 
+    private RectF btnWatchAd = new RectF();
+    private boolean hasDoubledCoins = false;
 
     private List<FloatingText> floatingTexts = new ArrayList<>();
 
@@ -246,6 +253,12 @@ public class GameEngine {
 
     public void update(float dt) {
         animTimer += dt;
+        
+        if (previousState != currentState) {
+            onStateChanged(previousState, currentState);
+            previousState = currentState;
+        }
+
         GameState state = currentState;
         
         if (progress != null && progress.isLoggedIn && !wasLoggedIn) {
@@ -275,12 +288,37 @@ public class GameEngine {
         else if (state == GameState.MULTIPLAYER_RACING) updateMultiplayerRacing(dt);
         else if (state == GameState.MULTIPLAYER_CRASHED) updateMultiplayerCrashed(dt);
         else if (state == GameState.CRASHING) updateCrashing(dt);
+        else if (state == GameState.GAME_OVER) particles.update(dt, currentWorld);
 
         for (int i = floatingTexts.size() - 1; i >= 0; i--) {
             FloatingText ft = floatingTexts.get(i);
             ft.timer += dt;
             ft.y -= 50f * dt;
             if (ft.timer > 1.0f) floatingTexts.remove(i);
+        }
+    }
+
+    private void onStateChanged(GameState oldState, GameState newState) {
+        if (context instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) context;
+            
+            // Manage Banner Ad
+            if (newState == GameState.MAIN_MENU || newState == GameState.GARAGE || newState == GameState.TRACK_SELECTION) {
+                mainActivity.showBannerAd();
+            } else {
+                mainActivity.hideBannerAd();
+            }
+            
+            // Manage Interstitial Ad (Crash)
+            if (newState == GameState.GAME_OVER || newState == GameState.MULTIPLAYER_RESULTS) {
+                if (oldState != GameState.GAME_OVER && oldState != GameState.MULTIPLAYER_RESULTS) {
+                    crashesSinceLastAd++;
+                    if (crashesSinceLastAd >= 3) {
+                        crashesSinceLastAd = 0;
+                        mainActivity.showInterstitialAd();
+                    }
+                }
+            }
         }
     }
 
@@ -680,7 +718,25 @@ public class GameEngine {
                 canvas.drawText("CRASHED!", screenW / 2f, screenH * 0.4f, p);
                 p.setTextSize(screenW * 0.05f);
                 canvas.drawText("Score: " + currentScore, screenW / 2f, screenH * 0.5f, p);
-                canvas.drawText("TAP TO RESTART", screenW / 2, screenH / 2 + 50, p);
+                
+                if (!hasDoubledCoins && runCoins > 0) {
+                    float btnW = screenW * 0.8f;
+                    float btnH = screenH * 0.08f;
+                    float btnY = screenH * 0.58f;
+                    btnWatchAd.set(screenW/2f - btnW/2, btnY, screenW/2f + btnW/2, btnY + btnH);
+                    
+                    p.setColor(Color.parseColor("#4CAF50")); // Green
+                    canvas.drawRoundRect(btnWatchAd, 20f, 20f, p);
+                    p.setColor(Color.WHITE);
+                    p.setTextSize(btnH * 0.4f);
+                    canvas.drawText("📺 WATCH AD (2X COINS!)", btnWatchAd.centerX(), btnWatchAd.centerY() + p.getTextSize()*0.38f, p);
+                    
+                    p.setColor(Color.WHITE);
+                    p.setTextSize(screenW * 0.04f);
+                    canvas.drawText("TAP ANYWHERE ELSE TO RESTART", screenW / 2f, screenH * 0.75f, p);
+                } else {
+                    canvas.drawText("TAP TO RESTART", screenW / 2, screenH / 2 + 50, p);
+                }
             }
             
             if (state == GameState.MULTIPLAYER_CRASHED) {
@@ -1192,7 +1248,19 @@ public class GameEngine {
                 audio.playUi();
             }
         } else if (state == GameState.GAME_OVER) {
-            currentState = GameState.MAIN_MENU;
+            if (!hasDoubledCoins && runCoins > 0 && btnWatchAd.contains(x, y)) {
+                if (context instanceof MainActivity) {
+                    ((MainActivity) context).showRewardedAd(rewardItem -> {
+                        hasDoubledCoins = true;
+                        progress.totalCoins += runCoins;
+                        storage.saveProgress(progress);
+                        audio.playLevelUp(); // Play success sound
+                    });
+                }
+            } else {
+                currentState = GameState.MAIN_MENU;
+                audio.playUi();
+            }
         } else if (state == GameState.MULTIPLAYER_RESULTS) {
             if (multiplayerResultScreen.btnCancel != null && multiplayerResultScreen.btnCancel.contains(x, y)) {
                 if (multiplayerManager != null) multiplayerManager.leaveRoom();
@@ -1410,6 +1478,7 @@ public class GameEngine {
         exactScore = 0f;
         currentScore = 0;
         runCoins = 0;
+        hasDoubledCoins = false;
         currentLevel = 1;
         applySelectedVehicle(); // Restores currentWorld
         aiCars.clear();
