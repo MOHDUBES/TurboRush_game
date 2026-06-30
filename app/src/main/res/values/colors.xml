@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary brand colors -->
+    <color name="colorPrimary">#1A1A2E</color>
+    <color name="colorPrimaryDark">#0F0F1A</color>
+    <color name="colorAccent">#E94560</color>
+    <color name="colorAccentSecondary">#F5A623</color>
+    <color name="colorGold">#FFD700</color>
+    <color name="colorSilver">#C0C0C0</color>
+
+    <!-- UI Colors -->
+    <color name="colorBackground">#0D0D1A</color>
+    <color name="colorSurface">#1E1E3A</color>
+    <color name="colorSurfaceVariant">#252545</color>
+    <color name="colorOnSurface">#FFFFFF</color>
+    <color name="colorOnSurfaceVariant">#B0B0CC</color>
+
+    <!-- HUD Colors -->
+    <color name="colorHudBackground">#80000000</color>
+    <color name="colorHudText">#FFFFFF</color>
+    <color name="colorScoreText">#FFD700</color>
+    <color name="colorCoinText">#FFA500</color>
+    <color name="colorFuelGreen">#00E676</color>
+    <color name="colorFuelYellow">#FFD740</color>
+    <color name="colorFuelRed">#FF1744</color>
+
+    <!-- Road Colors -->
+    <color name="colorRoadAsphalt">#1C1C1C</color>
+    <color name="colorRoadLine">#FFFFFF</color>
+    <color name="colorRoadLineYellow">#FFD700</color>
+    <color name="colorCurb">#CC3333</color>
+    <color name="colorGrass">#2D5A1B</color>
+    <color name="colorSidewalk">#5A5A5A</color>
+
+    <!-- Car Colors -->
+    <color name="colorCarRed">#E53935</color>
+    <color name="colorCarBlue">#1E88E5</color>
+    <color name="colorCarGreen">#43A047</color>
+    <color name="colorCarYellow">#FDD835</color>
+    <color name="colorCarWhite">#F5F5F5</color>
+    <color name="colorCarBlack">#212121</color>
+    <color name="colorCarOrange">#FB8C00</color>
+    <color name="colorCarPurple">#8E24AA</color>
+    <color name="colorCarSilver">#9E9E9E</color>
+    <color name="colorCarCyan">#00ACC1</color>
+
+    <!-- Button Colors -->
+    <color name="colorButtonPrimary">#E94560</color>
+    <color name="colorButtonSecondary">#3D3D6B</color>
+    <color name="colorButtonText">#FFFFFF</color>
+
+    <!-- Transparent -->
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorSemiTransparent">#99000000</color>
+    <color name="colorOverlay">#CC000000</color>
+</resources>
+

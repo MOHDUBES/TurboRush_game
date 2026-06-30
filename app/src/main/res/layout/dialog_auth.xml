@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#151821">
+
+    <TextView
+        android:id="@+id/tvAuthTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <EditText
+        android:id="@+id/etAuthName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#24283B"
+        android:hint="Player Name"
+        android:textColorHint="#808080"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etAuthEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#24283B"
+        android:hint="Email Address"
+        android:textColorHint="#808080"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/etAuthPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#24283B"
+        android:hint="Password"
+        android:textColorHint="#808080"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:inputType="textPassword" />
+
+    <!-- Confirm Password Field (Only for Sign Up) -->
+    <EditText
+        android:id="@+id/etAuthConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#24283B"
+        android:hint="Confirm Password"
+        android:textColorHint="#808080"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/cbShowPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Password"
+        android:textColor="#AAAAAA"
+        android:buttonTint="#FFD700"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Action Button (Sign In / Sign Up / Reset) -->
+    <Button
+        android:id="@+id/btnAuthAction"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Sign In"
+        android:backgroundTint="#FFD700"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvAuthForgotPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textAlignment="center"
+        android:textColor="#4B5563"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/tvAuthToggleMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Sign Up"
+        android:textAlignment="center"
+        android:textColor="#AAAAAA"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+</LinearLayout>

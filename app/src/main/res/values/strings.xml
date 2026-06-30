@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TurboRush: Street Racing</string>
+    <string name="start_game">START RACE</string>
+    <string name="garage">GARAGE</string>
+    <string name="leaderboard">LEADERBOARD</string>
+    <string name="settings">SETTINGS</string>
+    <string name="pause">PAUSE</string>
+    <string name="resume">RESUME</string>
+    <string name="restart">RESTART</string>
+    <string name="main_menu">MAIN MENU</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="score">SCORE</string>
+    <string name="coins">COINS</string>
+    <string name="distance">DISTANCE</string>
+    <string name="level">LEVEL</string>
+    <string name="fuel">FUEL</string>
+    <string name="best_score">BEST SCORE</string>
+    <string name="new_best">NEW BEST!</string>
+    <string name="unlock">UNLOCK</string>
+    <string name="select">SELECT</string>
+    <string name="selected">SELECTED</string>
+    <string name="locked">LOCKED</string>
+    <string name="speed">SPEED</string>
+    <string name="handling">HANDLING</string>
+    <string name="fuel_efficiency">FUEL EFF.</string>
+    <string name="durability">DURABILITY</string>
+    <string name="reason_wall">Hit Wall</string>
+    <string name="reason_fuel">Out of Fuel</string>
+    <string name="level_up">LEVEL UP!</string>
+    <string name="tap_to_start">TAP TO START</string>
+    <string name="loading">LOADING...</string>
+    <string name="back">BACK</string>
+    <string name="mute">MUTE</string>
+    <string name="unmute">SOUND</string>
+    <string name="sports_cars">Sports Cars</string>
+    <string name="trucks">Trucks</string>
+    <string name="motorcycles">Motorcycles</string>
+    <string name="special">Special</string>
+    <string name="coins_suffix">coins</string>
+    <string name="meters_suffix">m</string>
+    <string name="km_suffix">km</string>
+    <string name="run_coins">RUN COINS</string>
+    <string name="run_distance">RUN DIST.</string>
+</resources>
+
